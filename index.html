@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Automatisez la rédaction de vos contrats récurrents. Gagnez 10h par semaine sur vos documents juridiques. Solution sur-mesure pour cabinets d'avocats.">
+    <title>ContractFlow - Automatisation de contrats pour avocats</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ContractFlow - Automatisez vos contrats récurrents">
+    <meta property="og:description" content="Gagnez 10h par semaine sur la rédaction de vos contrats. Solution sur-mesure pour cabinets d'avocats.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #09090b;
+            color: #fafafa;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(9, 9, 11, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .navbar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon svg {
+            width: 18px;
+            height: 18px;
+            color: white;
+        }
+        
+        .logo-text {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: white;
+        }
+        
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            color: #09090b;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .nav-cta:hover {
+            background: #f4f4f5;
+            transform: translateY(-1px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 1.5rem 4rem;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        
+        .grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, #0ea5e9 1px, transparent 1px),
+                linear-gradient(to bottom, #0ea5e9 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.03;
+            mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 80%);
+        }
+        
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+        
+        .glow-orb-1 {
+            top: 20%;
+            left: 20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(14, 165, 233, 0.15);
+        }
+        
+        .glow-orb-2 {
+            bottom: 30%;
+            right: 20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(14, 165, 233, 0.1);
+        }
+        
+        .radial-fade {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, #09090b 75%);
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #7dd3fc;
+            margin-bottom: 1.5rem;
+        }
+        
+        .badge svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #7dd3fc, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-muted {
+            color: #a1a1aa;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: #a1a1aa;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            color: #71717a;
+        }
+        
+        .feature-tag svg {
+            width: 12px;
+            height: 12px;
+            color: #0ea5e9;
+        }
+        
+        .cta-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 640px) {
+            .cta-group {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: white;
+            color: #09090b;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .btn-primary:hover {
+            background: #f4f4f5;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s;
+        }
+        
+        .btn-primary:hover svg {
+            transform: translateX(2px);
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: #d4d4d8;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #3f3f46;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .btn-secondary:hover {
+            border-color: #52525b;
+            color: white;
+        }
+        
+        .social-proof {
+            font-size: 0.875rem;
+            color: #71717a;
+        }
+        
+        /* Problem Section */
+        .section {
+            padding: 5rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-light {
+            background: #fafafa;
+            color: #09090b;
+        }
+        
+        .section-dark {
+            background: #09090b;
+        }
+        
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #0ea5e9;
+            margin-bottom: 0.75rem;
+        }
+        
+        .section-light .section-label {
+            color: #0284c7;
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .section-subtitle {
+            color: #71717a;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section-light .section-subtitle {
+            color: #52525b;
+        }
+        
+        /* Problem Cards */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .problem-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .problem-card {
+            padding: 1.5rem;
+            background: #f4f4f5;
+            border: 1px solid #e4e4e7;
+            border-radius: 16px;
+            transition: all 0.2s;
+        }
+        
+        .problem-card:hover {
+            border-color: #d4d4d8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+        }
+        
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+        
+        .problem-icon svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+        
+        .problem-icon-blue {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        }
+        
+        .problem-icon-amber {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .problem-icon-rose {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+        }
+        
+        .problem-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .problem-card p {
+            font-size: 0.875rem;
+            color: #52525b;
+            line-height: 1.6;
+        }
+        
+        /* Solution Section */
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #27272a;
+            background: rgba(24, 24, 27, 0.5);
+        }
+        
+        @media (min-width: 768px) {
+            .solution-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .solution-column {
+            padding: 2rem;
+        }
+        
+        .solution-before {
+            border-bottom: 1px solid #27272a;
+        }
+        
+        @media (min-width: 768px) {
+            .solution-before {
+                border-bottom: none;
+                border-right: 1px solid #27272a;
+            }
+        }
+        
+        .solution-after {
+            background: rgba(14, 165, 233, 0.05);
+        }
+        
+        .solution-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        
+        .solution-header-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .solution-header-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .solution-header-icon-red {
+            background: rgba(239, 68, 68, 0.2);
+        }
+        
+        .solution-header-icon-red svg {
+            color: #f87171;
+        }
+        
+        .solution-header-icon-blue {
+            background: rgba(14, 165, 233, 0.2);
+        }
+        
+        .solution-header-icon-blue svg {
+            color: #38bdf8;
+        }
+        
+        .solution-header-text span {
+            display: block;
+            font-size: 0.625rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.125rem;
+        }
+        
+        .solution-header-text-red span {
+            color: #f87171;
+        }
+        
+        .solution-header-text-blue span {
+            color: #38bdf8;
+        }
+        
+        .solution-header-text h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        .solution-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        
+        .solution-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .solution-item-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .solution-item-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .solution-item-icon-red {
+            background: rgba(239, 68, 68, 0.2);
+        }
+        
+        .solution-item-icon-red svg {
+            color: #f87171;
+        }
+        
+        .solution-item-icon-blue {
+            background: rgba(14, 165, 233, 0.2);
+        }
+        
+        .solution-item-icon-blue svg {
+            color: #38bdf8;
+        }
+        
+        .solution-item h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .solution-item p {
+            font-size: 0.8125rem;
+            color: #a1a1aa;
+            line-height: 1.5;
+        }
+        
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .benefit-card {
+            padding: 1.5rem;
+            background: #f4f4f5;
+            border: 1px solid #e4e4e7;
+            border-radius: 16px;
+            transition: all 0.2s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+        
+        .benefit-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+        
+        .benefit-icon svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+        
+        .benefit-icon-blue {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        }
+        
+        .benefit-icon-emerald {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .benefit-icon-violet {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+        
+        .benefit-tag {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            color: #0284c7;
+            background: rgba(14, 165, 233, 0.1);
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .benefit-card p {
+            font-size: 0.875rem;
+            color: #52525b;
+            line-height: 1.6;
+        }
+        
+        /* Process Section */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(24, 24, 27, 0.5);
+            border: 1px solid #27272a;
+            border-radius: 16px;
+            transition: all 0.2s;
+        }
+        
+        .process-step:hover {
+            border-color: rgba(14, 165, 233, 0.3);
+            background: rgba(14, 165, 233, 0.05);
+        }
+        
+        .process-step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+        
+        .process-step-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.375rem;
+        }
+        
+        .process-step-content p {
+            font-size: 0.875rem;
+            color: #a1a1aa;
+            line-height: 1.5;
+        }
+        
+        .process-step-duration {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #38bdf8;
+            margin-top: 0.5rem;
+        }
+        
+        /* Form Section */
+        .form-section {
+            background: linear-gradient(180deg, #09090b 0%, #0c1015 100%);
+        }
+        
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .form-card {
+            background: rgba(24, 24, 27, 0.8);
+            border: 1px solid #27272a;
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .form-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.375rem 1rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+            white-space: nowrap;
+        }
+        
+        .form-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-top: 0.5rem;
+        }
+        
+        .form-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            font-size: 0.875rem;
+            color: #a1a1aa;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #d4d4d8;
+            margin-bottom: 0.375rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(9, 9, 11, 0.5);
+            border: 1px solid #3f3f46;
+            border-radius: 10px;
+            font-size: 0.9375rem;
+            color: white;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        
+        .form-input::placeholder {
+            color: #52525b;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+        }
+        
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+        
+        .form-submit {
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            background: white;
+            color: #09090b;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            font-family: inherit;
+        }
+        
+        .form-submit:hover {
+            background: #f4f4f5;
+            transform: translateY(-2px);
+        }
+        
+        .form-submit svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.2s;
+        }
+        
+        .form-submit:hover svg {
+            transform: translateX(3px);
+        }
+        
+        .form-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #52525b;
+            margin-top: 1rem;
+        }
+        
+        .form-benefits {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #27272a;
+        }
+        
+        .form-benefit {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+            color: #71717a;
+        }
+        
+        .form-benefit svg {
+            width: 14px;
+            height: 14px;
+            color: #0ea5e9;
+        }
+        
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .testimonial-card {
+            padding: 1.5rem;
+            background: #f4f4f5;
+            border: 1px solid #e4e4e7;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .testimonial-stars {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-stars svg {
+            width: 14px;
+            height: 14px;
+            color: #fbbf24;
+        }
+        
+        .testimonial-quote {
+            font-size: 0.875rem;
+            color: #3f3f46;
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e4e4e7;
+        }
+        
+        .testimonial-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(14, 165, 233, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #0284c7;
+        }
+        
+        .testimonial-info {
+            flex-grow: 1;
+        }
+        
+        .testimonial-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #09090b;
+        }
+        
+        .testimonial-role {
+            font-size: 0.75rem;
+            color: #71717a;
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #27272a;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 0;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .faq-question span {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d4d4d8;
+            padding-right: 1rem;
+        }
+        
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            color: #71717a;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+        
+        .faq-item.open .faq-question svg {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.open .faq-question span {
+            color: #38bdf8;
+        }
+        
+        .faq-answer {
+            display: none;
+            padding-bottom: 1.25rem;
+        }
+        
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+        
+        .faq-answer p {
+            font-size: 0.875rem;
+            color: #a1a1aa;
+            line-height: 1.6;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 2rem 1.5rem;
+            background: #09090b;
+            border-top: 1px solid #27272a;
+        }
+        
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-logo-icon {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .footer-logo-icon span {
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: #09090b;
+        }
+        
+        .footer-logo-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .footer-links a {
+            font-size: 0.75rem;
+            color: #71717a;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: #52525b;
+        }
+        
+        /* Animations */
+        @keyframes pulse-line {
+            0%, 100% {
+                opacity: 0;
+                transform: scaleX(0.2);
+            }
+            50% {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+        
+        .animated-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(14, 165, 233, 0.5), transparent);
+            animation: pulse-line 4s ease-in-out infinite;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+            .hero {
+                padding-top: 5rem;
+            }
+            
+            .section {
+                padding: 3rem 1rem;
+            }
+            
+            .form-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <span class="logo-text">ContractFlow</span>
+            </a>
+            <a href="#contact" class="nav-cta">
+                Demander un audit
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="grid-pattern"></div>
+            <div class="glow-orb glow-orb-1"></div>
+            <div class="glow-orb glow-orb-2"></div>
+            <div class="radial-fade"></div>
+            <div class="animated-line" style="top: 25%;"></div>
+            <div class="animated-line" style="top: 45%; animation-delay: 2s;"></div>
+            <div class="animated-line" style="top: 65%; animation-delay: 4s;"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="badge">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                Spécialiste automatisation juridique
+            </div>
+            
+            <h1>
+                <div>Récupérez <span class="gradient-text">10h par semaine</span></div>
+                <div>sur vos <span class="gradient-text">contrats récurrents</span></div>
+            </h1>
+            
+            <p class="hero-subtitle">
+                Automatisez la rédaction de vos baux, CGV, statuts et autres documents répétitifs. 
+                Concentrez-vous sur le conseil juridique à haute valeur ajoutée.
+            </p>
+            
+            <div class="feature-tags">
+                <span class="feature-tag">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Baux commerciaux
+                </span>
+                <span class="feature-tag">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    CGV & CGU
+                </span>
+                <span class="feature-tag">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Statuts sociétés
+                </span>
+                <span class="feature-tag">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                    Contrats de travail
+                </span>
+            </div>
+            
+            <div class="cta-group">
+                <a href="#contact" class="btn-primary">
+                    Demander un audit gratuit
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+                <a href="#process" class="btn-secondary">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 16px; height: 16px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                    Découvrir le processus
+                </a>
+            </div>
+            
+            <p class="social-proof">+ de 50 cabinets accompagnés en France</p>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="section section-light">
+        <div class="section-inner">
+            <div class="section-header">
+                <p class="section-label">Le constat</p>
+                <h2 class="section-title">Vos journées ne devraient pas ressembler à ça</h2>
+                <p class="section-subtitle">
+                    Ces tâches répétitives vous coûtent plus que du temps : elles freinent votre développement.
+                </p>
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon problem-icon-blue">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+                        </svg>
+                    </div>
+                    <h3>Le copier-coller permanent</h3>
+                    <p>Vous passez des heures à adapter les mêmes clauses, modifier les mêmes variables, reformater les mêmes documents.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon problem-icon-amber">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3>Le risque d'erreur humaine</h3>
+                    <p>Une coquille oubliée, une date mal reportée, un montant erroné : chaque document manuel est un risque potentiel.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon problem-icon-rose">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3>La rentabilité qui s'érode</h3>
+                    <p>Le temps passé sur la rédaction standard, c'est du temps non facturé sur des missions à plus forte valeur.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <p style="font-size: 1.125rem; color: #3f3f46;">
+                    <strong style="color: #09090b;">L'automatisation résout ces trois problèmes.</strong> 
+                    En une seule intervention.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Section -->
+    <section class="section section-dark">
+        <div class="section-inner">
+            <div class="section-header">
+                <p class="section-label">La transformation</p>
+                <h2 class="section-title">
+                    Avant vs Après <span class="gradient-text">l'automatisation</span>
+                </h2>
+                <p class="section-subtitle" style="color: #a1a1aa;">
+                    Ce n'est pas de la magie. C'est de l'ingénierie documentaire appliquée à votre cabinet.
+                </p>
+            </div>
+            
+            <div class="solution-grid">
+                <div class="solution-column solution-before">
+                    <div class="solution-header">
+                        <div class="solution-header-icon solution-header-icon-red">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </div>
+                        <div class="solution-header-text solution-header-text-red">
+                            <span>Avant</span>
+                            <h3>Le processus manuel</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="solution-items">
+                        <div class="solution-item">
+                            <div class="solution-item-icon solution-item-icon-red">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>45 min par contrat</h4>
+                                <p>Recherche du modèle, adaptation, vérification, mise en forme, export PDF...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="solution-item">
+                            <div class="solution-item-icon solution-item-icon-red">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Erreurs récurrentes</h4>
+                                <p>Dates incorrectes, montants mal calculés, clauses obsolètes oubliées.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="solution-item">
+                            <div class="solution-item-icon solution-item-icon-red">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Frustration quotidienne</h4>
+                                <p>Vos collaborateurs qualifiés perdus dans des tâches administratives.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="solution-column solution-after">
+                    <div class="solution-header">
+                        <div class="solution-header-icon solution-header-icon-blue">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </div>
+                        <div class="solution-header-text solution-header-text-blue">
+                            <span>Après</span>
+                            <h3>Le processus automatisé</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="solution-items">
+                        <div class="solution-item">
+                            <div class="solution-item-icon solution-item-icon-blue">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>5 min par contrat</h4>
+                                <p>Remplissez un formulaire, le document se génère automatiquement.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="solution-item">
+                            <div class="solution-item-icon solution-item-icon-blue">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Zéro erreur</h4>
+                                <p>Calculs automatiques, clauses à jour, mise en forme cohérente.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="solution-item">
+                            <div class="solution-item-icon solution-item-icon-blue">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Équipe valorisée</h4>
+                                <p>Vos talents se concentrent sur l'analyse et le conseil client.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section section-light">
+        <div class="section-inner">
+            <div class="section-header">
+                <p class="section-label">Pourquoi nous ?</p>
+                <h2 class="section-title">Une expertise dédiée aux professionnels du droit</h2>
+                <p class="section-subtitle">
+                    Nous comprenons les contraintes et exigences de votre métier.
+                </p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon benefit-icon-blue">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <span class="benefit-tag">Confidentialité</span>
+                    <h3>Secret professionnel respecté</h3>
+                    <p>Vos données restent chez vous. Nous travaillons sur vos serveurs ou solutions hébergées en France.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon benefit-icon-emerald">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <span class="benefit-tag">Sur-mesure</span>
+                    <h3>Adapté à votre pratique</h3>
+                    <p>Chaque cabinet est unique. Nous analysons vos processus pour créer une solution parfaitement ajustée.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon benefit-icon-violet">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                    </div>
+                    <span class="benefit-tag">ROI rapide</span>
+                    <h3>Rentabilisé en 3 mois</h3>
+                    <p>Le temps économisé sur les contrats récurrents rembourse l'investissement dès le premier trimestre.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="section section-dark">
+        <div class="section-inner">
+            <div class="section-header">
+                <p class="section-label">Notre méthode</p>
+                <h2 class="section-title">Un accompagnement en <span class="gradient-text">4 étapes</span></h2>
+                <p class="section-subtitle" style="color: #a1a1aa;">
+                    De l'audit initial à la formation de vos équipes, nous gérons tout.
+                </p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-step-number">1</div>
+                    <div class="process-step-content">
+                        <h3>Audit de vos documents</h3>
+                        <p>Analyse de vos contrats les plus fréquents, identification des variables et des clauses conditionnelles.</p>
+                        <div class="process-step-duration">→ 1 appel de 45 min</div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-step-number">2</div>
+                    <div class="process-step-content">
+                        <h3>Conception des templates</h3>
+                        <p>Création de vos modèles intelligents avec logique conditionnelle, calculs automatiques et mise en forme professionnelle.</p>
+                        <div class="process-step-duration">→ 1 à 2 semaines</div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-step-number">3</div>
+                    <div class="process-step-content">
+                        <h3>Intégration & tests</h3>
+                        <p>Connexion avec vos outils existants (CRM, gestion de dossiers), phase de test avec vos cas réels.</p>
+                        <div class="process-step-duration">→ 1 semaine</div>
+                    </div>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-step-number">4</div>
+                    <div class="process-step-content">
+                        <h3>Formation & support</h3>
+                        <p>Formation de vos collaborateurs à l'utilisation du système, documentation complète et support réactif.</p>
+                        <div class="process-step-duration">→ Support inclus 3 mois</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section section-light">
+        <div class="section-inner">
+            <div class="section-header">
+                <p class="section-label">Témoignages</p>
+                <h2 class="section-title">Ce qu'en disent nos clients</h2>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="testimonial-quote">
+                        "Nous avons automatisé la génération de nos baux commerciaux. Ce qui prenait 1h par dossier prend maintenant 5 minutes. Un gain de temps considérable pour le cabinet."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">ML</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Me Laurent M.</div>
+                            <div class="testimonial-role">Avocat associé, Paris</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="testimonial-quote">
+                        "L'accompagnement a été exemplaire. Ils ont compris nos contraintes de confidentialité et proposé une solution entièrement hébergée en France."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SD</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Me Sophie D.</div>
+                            <div class="testimonial-role">Cabinet spécialisé droit des sociétés</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="testimonial-quote">
+                        "Ma collaboratrice peut désormais générer 15 contrats de travail par jour au lieu de 3. La qualité des documents est irréprochable."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">PB</div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Me Pierre B.</div>
+                            <div class="testimonial-role">Avocat droit social, Lyon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section id="contact" class="section form-section">
+        <div class="section-inner">
+            <div class="form-container">
+                <div class="form-card">
+                    <div class="form-badge">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Audit gratuit • 30 min
+                    </div>
+                    
+                    <div class="form-header">
+                        <h2>Demandez votre audit gratuit</h2>
+                        <p>Découvrez combien de temps vous pourriez économiser</p>
+                    </div>
+                    
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label class="form-label" for="name">Nom complet *</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Me Jean Dupont" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email professionnel *</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="j.dupont@cabinet.fr" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="06 12 34 56 78">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="cabinet-size">Taille du cabinet</label>
+                            <select id="cabinet-size" name="cabinet_size" class="form-input form-select">
+                                <option value="">Sélectionnez...</option>
+                                <option value="solo">Avocat individuel</option>
+                                <option value="2-5">2 à 5 avocats</option>
+                                <option value="6-20">6 à 20 avocats</option>
+                                <option value="20+">Plus de 20 avocats</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="contracts">Types de contrats à automatiser</label>
+                            <select id="contracts" name="contracts" class="form-input form-select">
+                                <option value="">Sélectionnez...</option>
+                                <option value="baux">Baux commerciaux / habitation</option>
+                                <option value="travail">Contrats de travail</option>
+                                <option value="societes">Statuts et pactes d'associés</option>
+                                <option value="cgv">CGV / CGU / Mentions légales</option>
+                                <option value="autres">Autres documents</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="form-submit">
+                            Réserver mon audit gratuit
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </button>
+                    </form>
+                    
+                    <p class="form-note">
+                        Vos données sont confidentielles et ne seront jamais partagées.
+                    </p>
+                    
+                    <div class="form-benefits">
+                        <div class="form-benefit">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Sans engagement
+                        </div>
+                        <div class="form-benefit">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Réponse sous 24h
+                        </div>
+                        <div class="form-benefit">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Devis personnalisé
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section section-dark">
+        <div class="section-inner">
+            <div class="section-header">
+                <p class="section-label">Questions fréquentes</p>
+                <h2 class="section-title">Vous hésitez encore ?</h2>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item open">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Mes données client restent-elles confidentielles ?</span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolument. Nous travaillons exclusivement sur des solutions hébergées en France ou directement sur vos serveurs. Aucune donnée client ne transite par nos systèmes. Le secret professionnel est notre priorité absolue.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Combien de temps dure la mise en place ?</span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>En moyenne 3 à 4 semaines entre l'audit initial et la mise en production. Pour des cas simples (un seul type de contrat), cela peut être réduit à 2 semaines.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Puis-je modifier les templates moi-même ensuite ?</span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui, nous vous formons à la maintenance des templates. Vous pourrez modifier les clauses, ajouter des variables ou ajuster la mise en forme de manière autonome. Pour les modifications structurelles importantes, nous restons disponibles.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Quel est le coût d'une telle solution ?</span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Le tarif dépend du nombre et de la complexité des documents à automatiser. Comptez à partir de 2 500€ HT pour un premier template. L'audit gratuit permet d'établir un devis précis adapté à vos besoins.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Quels outils utilisez-vous ?</span>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nous utilisons des solutions reconnues et éprouvées comme Make, Pandadoc, ou des outils open source selon vos contraintes. L'objectif est toujours de s'intégrer à votre écosystème existant.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <div class="footer-logo-icon">
+                    <span>CF</span>
+                </div>
+                <span class="footer-logo-text">ContractFlow</span>
+            </div>
+            
+            <nav class="footer-links">
+                <a href="#">Mentions légales</a>
+                <a href="#">Politique de confidentialité</a>
+                <a href="mailto:contact@contractflow.fr">Contact</a>
+            </nav>
+            
+            <p class="footer-copyright">© 2025 ContractFlow</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const faqItem = button.parentElement;
+            const allItems = document.querySelectorAll('.faq-item');
+            
+            allItems.forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('open');
+                }
+            });
+            
+            faqItem.classList.toggle('open');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission handling (placeholder)
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically send the form data to your backend
+            alert('Merci pour votre demande ! Nous vous recontacterons sous 24h.');
+        });
+    </script>
+</body>
+</html>
